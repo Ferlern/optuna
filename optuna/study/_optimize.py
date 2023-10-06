@@ -1,6 +1,6 @@
 from concurrent.futures import FIRST_COMPLETED
 from concurrent.futures import Future
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ProcessPoolExecutor
 from concurrent.futures import wait
 import datetime
 import gc
@@ -82,7 +82,7 @@ def _optimize(
             time_start = datetime.datetime.now()
             futures: Set[Future] = set()
 
-            with ThreadPoolExecutor(max_workers=n_jobs) as executor:
+            with ProcessPoolExecutor(max_workers=n_jobs) as executor:
                 for n_submitted_trials in itertools.count():
                     if study._stop_flag:
                         break
